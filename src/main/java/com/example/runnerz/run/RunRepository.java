@@ -26,6 +26,19 @@ public class RunRepository {
                 .findFirst();
     }
 
+    void create(Run run) {
+        runs.add(run);
+    }
+
+    void update(Run run, Integer id) {
+        Optional<Run> existingRun = findById(id);
+//        existingRun.ifPresent(runObj -> runs.set(runs.indexOf(runObj), run));
+        if (existingRun.isEmpty()) {
+            return;
+        }
+        runs.set(runs.indexOf(existingRun.get()), run);
+    }
+
     @PostConstruct
     private void init() {
         runs.add(new Run(1,
@@ -41,5 +54,9 @@ public class RunRepository {
                 LocalDateTime.now().plusMinutes(30),
                 2,
                 Location.INDOOR));
+    }
+
+    public void delete(Integer id) {
+        runs.removeIf(run -> Objects.equals(run.id(), id));
     }
 }
