@@ -7,3 +7,13 @@ CREATE TABLE IF NOT EXISTS Run (
     location varchar(10) NOT NULL,
     PRIMARY KEY (id)
 );
+
+-- services:
+--   postgres:
+--     image: 'postgres:latest'
+--     environment:
+--       - 'POSTGRES_DB=runnerz'
+--       - 'POSTGRES_PASSWORD=password'
+--       - 'POSTGRES_USER=jenny'
+--     ports:
+--       - '5432:5432'
