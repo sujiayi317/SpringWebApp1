@@ -1,9 +1,15 @@
 package com.example.runnerz;
 
+import com.example.runnerz.user.User;
+import com.example.runnerz.user.UserRestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class RunnerzApplication {
@@ -31,5 +37,17 @@ public class RunnerzApplication {
 //			runRepository.create(run);
 //		};
 //	}
+
+	@Bean
+	CommandLineRunner commandLineRunner(UserRestClient client) {
+		return args -> {
+			List<User> users = client.findAll();
+			users.forEach(System.out::println);
+			System.out.println();
+
+			User user = client.findById(1);
+			System.out.println(user);
+		};
+	}
 
 }
